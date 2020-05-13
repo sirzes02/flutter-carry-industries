@@ -18,7 +18,8 @@ class _LoginState extends State<Login> {
 
   String mensaje = "";
 
-  Future<List> Login() async {
+  Future<List> login() async {
+
     final reponde = await http.post("", body: {
       "username": controllerUser.text,
       "password": controllerPass.text
@@ -31,6 +32,11 @@ class _LoginState extends State<Login> {
           gravity: Toast.CENTER,
           backgroundColor: Colors.blue,
           textColor: Colors.white);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Inicio()),
+      );
     } else if (dataUser == "Incorrecto") {
       Toast.show("LOGIN incorrecto", context,
           duration: Toast.LENGTH_LONG,
@@ -83,7 +89,6 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           alignment: Alignment.topRight,
-                         
                         )
                       ],
                     ),
@@ -147,10 +152,10 @@ class _LoginState extends State<Login> {
                 margin: EdgeInsets.only(top: (heightApp * 0.03)),
                 child: RaisedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Inicio()),
-                    );
+                    login();
+                    /*
+                    
+                    */
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(80.0)),
@@ -173,9 +178,7 @@ class _LoginState extends State<Login> {
                       child: Text(
                         "Iniciar sesión",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
@@ -216,10 +219,7 @@ class _LoginState extends State<Login> {
                           );
                         },
                         child: const Text('Registrarse',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.blue
-                                )),
+                            style: TextStyle(fontSize: 20, color: Colors.blue)),
                       ))
                 ],
               ),
