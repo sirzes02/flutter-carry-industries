@@ -16,17 +16,14 @@ class _LoginState extends State<Login> {
   TextEditingController controllerUser = new TextEditingController();
   TextEditingController controllerPass = new TextEditingController();
 
-  String mensaje = "";
-
   Future<List> login() async {
-
     final reponde = await http.post("", body: {
-      "username": controllerUser.text,
-      "password": controllerPass.text
+      "correo": controllerUser.text,
+      "contra": controllerPass.text
     });
 
     var dataUser = json.decode(reponde.body);
-    if (dataUser == "Correcto") {
+    if (dataUser["status"] == "true") {
       Toast.show("LOGIN CORRECTO", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
@@ -37,7 +34,7 @@ class _LoginState extends State<Login> {
         context,
         MaterialPageRoute(builder: (context) => Inicio()),
       );
-    } else if (dataUser == "Incorrecto") {
+    } else if (dataUser["status"] == "false") {
       Toast.show("LOGIN incorrecto", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
@@ -47,6 +44,10 @@ class _LoginState extends State<Login> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
@@ -59,43 +60,26 @@ class _LoginState extends State<Login> {
               child: AnimatedContainer(
                 duration: Duration(seconds: 5),
                 width: widthApp * 100,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(132, 13, 153, .6),
-                      Color.fromRGBO(132, 13, 153, .9),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.topRight,
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Image.asset(""),
-                          height: 300,
-                        ),
-                        Container(
-                          child: Text(
-                            "Carros",
-                            style: TextStyle(
-                              fontFamily: "flower",
-                              color: Color.fromRGBO(0, 0, 0, .9),
-                              fontSize: 35,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          alignment: Alignment.topRight,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                alignment: Alignment.center,
+                child: Image.asset("imagenes/carros.png"),
+                height: 300,
               ),
             )
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              child: Text(
+                "Carry Industries",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF840D99)),
+              ),
+            ))
           ],
         ),
         Row(
@@ -219,7 +203,8 @@ class _LoginState extends State<Login> {
                           );
                         },
                         child: const Text('Registrarse',
-                            style: TextStyle(fontSize: 20, color: Colors.blue)),
+                            style: TextStyle(
+                                fontSize: 20, color: Color(0xFF840D99))),
                       ))
                 ],
               ),
