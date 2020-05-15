@@ -3,8 +3,8 @@
   
   $arr = array('status' => NULL, 'usuario' => NULL);
   
-  $correo = strtolower($_GET['correo']);
-  $contra = $_GET['contra'];
+  $correo = strtolower($_POST['correo']);
+  $contra = $_POST['contra'];
 
   $consulta = conectarModelo::conexion()->query("SELECT * FROM usuarios");
 

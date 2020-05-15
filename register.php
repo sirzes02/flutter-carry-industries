@@ -4,13 +4,13 @@
 	$arr = array('status' => false, 'problem' => NULL);
 	$bandera = false;
 
-	$correo = $_GET['correo'];
-	$nombre = $_GET['nombre'];
-	$apellido = $_GET['apellido'];
-	$telefono = $_GET['telefono'];
-	$direccion = $_GET['direccion'];
-	$contra = $_GET['contra'];
-	$contraV = $_GET['contraV'];
+	$correo = $_POST['correo'];
+	$nombre = $_POST['nombre'];
+	$apellido = $_POST['apellido'];
+	$telefono = $_POST['telefono'];
+	$direccion = $_POST['direccion'];
+	$contra = $_POST['contra'];
+	$contraV = $_POST['contraV'];
 
 	if ($correo != "") {
 		$consulta = conectarModelo::conexion()->query("SELECT usu_cor FROM usuarios");

@@ -3,12 +3,12 @@
 	
   $arr = array();
   
-	$marca = $_GET['marca'];
-  $modelo = $_GET['modelo'];
-  $precio = $_GET['precio'];
-	$tipo = $_GET['tipo'];
-	$usado = $_GET['usado'];
-  $correo = $_GET['correo'];
+	$marca = $_POST['marca'];
+  $modelo = $_POST['modelo'];
+  $precio = $_POST['precio'];
+	$tipo = $_POST['tipo'];
+	$usado = $_POST['usado'];
+  $correo = $_POST['correo'];
   
   $consulta = conectarModelo::conexion()->query("SELECT * FROM carro");
   $cont;
@@ -17,13 +17,13 @@
   if ($marca == "") $limit--;
   if ($modelo == "") $limit--;
   else {
-    $modeloL = explode("-", $_GET['modelo'])[0];
-    $modeloH = explode("-", $_GET['modelo'])[1];
+    $modeloL = explode("-", $_POST['modelo'])[0];
+    $modeloH = explode("-", $_POST['modelo'])[1];
   }
   if ($precio == "") $limit--;
   else {
-    $precioL = explode("-", $_GET['precio'])[0];
-    $precioH = explode("-", $_GET['precio'])[1];
+    $precioL = explode("-", $_POST['precio'])[0];
+    $precioH = explode("-", $_POST['precio'])[1];
   }
   if ($tipo == "") $limit--;
   if ($usado == "") $limit--;

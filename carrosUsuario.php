@@ -3,7 +3,7 @@
 	
   $arr = array();
 
-  $correo = $_GET['correo'];
+  $correo = $_POST['correo'];
   
   $consulta = conectarModelo::conexion()->query("SELECT usu_car_rec, usu_cor FROM usuarios");
 
