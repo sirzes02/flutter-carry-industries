@@ -19,18 +19,20 @@ class _RegistroState extends State<Registro> {
  TextEditingController controllerPassConf = new TextEditingController();
  
   Future<List> crearCuenta() async {
-    final reponde = await http.post("", body: {
-      "Nombre": controllerNom.text,
-      "Apellido": controllerApe.text,
-      "Celular": controllerCel.text,
-      "Email": controllerEmail.text,
-      "contrasena": controllerPass.text,
-      "contrasenaConf": controllerPassConf.text
+    final reponde = await http.post("http://3.16.167.111/proyectoCaro/register.php", body: {
+      "nombre": controllerNom.text,
+      "apellido": controllerApe.text,
+      "telefono": controllerCel.text,
+      "correo": controllerEmail.text,
+      "contra": controllerPass.text,
+      "contraV": controllerPassConf.text
     });
 
     var dataUser = json.decode(reponde.body);
-    if (dataUser == "Correcto") {
-      Toast.show("CORRECTO", context,
+
+    
+    if (dataUser["status"]) {
+      Toast.show("Creaste la cuenta", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
           backgroundColor: Colors.blue,
@@ -40,8 +42,8 @@ class _RegistroState extends State<Registro> {
         context,
         MaterialPageRoute(builder: (context) => Login()),
       );
-    } else if (dataUser == "Incorrecto") {
-      Toast.show("incorrecto", context,
+    } else if (!dataUser["status"]) {
+      Toast.show("${dataUser['problem']}", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
           backgroundColor: Colors.blue,
@@ -205,48 +207,47 @@ class _RegistroState extends State<Registro> {
                     ),
                   )
                 ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Center(
-                    child: Container(
-                      height: 50.0,
-                      margin: EdgeInsets.only(top: (heightApp * 0.03)),
-                      child: RaisedButton(
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80.0)),
-                        padding: EdgeInsets.all(0.0),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(132, 13, 153, .6),
-                                  Color.fromRGBO(132, 13, 153, .9),
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
-                              borderRadius: BorderRadius.circular(30.0)),
-                          child: Container(
-                            constraints: BoxConstraints(
-                                maxWidth: 250.0, minHeight: 50.0),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Crear cuenta",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white),
-                            ),
-                          ),
+              ),Row(
+          children: <Widget>[
+            Expanded(
+                child: Center(
+              child: Container(
+                height: 50.0,
+                margin: EdgeInsets.only(top: (heightApp * 0.03)),
+                child: RaisedButton(
+                  onPressed: () {
+                    crearCuenta();
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(80.0)),
+                  padding: EdgeInsets.all(0.0),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromRGBO(132, 13, 153, .6),
+                            Color.fromRGBO(132, 13, 153, .9),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                         ),
+                        borderRadius: BorderRadius.circular(30.0)),
+                    child: Container(
+                      constraints:
+                          BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Crear Cuenta",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ))
-                ],
-              )
+                  ),
+                ),
+              ),
+            )),
+          ],
+        ),
             ],
           ),
         ],

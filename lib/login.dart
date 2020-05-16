@@ -17,14 +17,19 @@ class _LoginState extends State<Login> {
   TextEditingController controllerPass = new TextEditingController();
 
   Future<List> login() async {
-    final reponde = await http.post("", body: {
+
+    final reponde = await http.post("http://3.16.167.111/proyectoCaro/login.php", body: {
       "correo": controllerUser.text,
       "contra": controllerPass.text
     });
 
+
     var dataUser = json.decode(reponde.body);
-    if (dataUser["status"] == "true") {
-      Toast.show("LOGIN CORRECTO", context,
+      print(dataUser["status"]);
+
+    
+    if (dataUser["status"]) {
+      Toast.show("Login correcto", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
           backgroundColor: Colors.blue,
@@ -34,8 +39,8 @@ class _LoginState extends State<Login> {
         context,
         MaterialPageRoute(builder: (context) => Inicio()),
       );
-    } else if (dataUser["status"] == "false") {
-      Toast.show("LOGIN incorrecto", context,
+    } else if (!dataUser["status"]) {
+      Toast.show("Login Incorrecto", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
           backgroundColor: Colors.blue,
@@ -137,9 +142,6 @@ class _LoginState extends State<Login> {
                 child: RaisedButton(
                   onPressed: () {
                     login();
-                    /*
-                    
-                    */
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(80.0)),
