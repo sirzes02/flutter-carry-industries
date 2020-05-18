@@ -17,23 +17,20 @@ class _LoginState extends State<Login> {
   TextEditingController controllerPass = new TextEditingController();
 
   Future<List> login() async {
-
-    final reponde = await http.post("http://3.16.167.111/proyectoCaro/login.php", body: {
-      "correo": controllerUser.text,
-      "contra": controllerPass.text
-    });
-
+    final reponde = await http.post(
+        "http://3.16.167.111/proyectoCaro/login.php",
+        body: {"correo": controllerUser.text, "contra": controllerPass.text});
 
     var dataUser = json.decode(reponde.body);
-      print(dataUser["status"]);
-
-    
+    print(dataUser["status"]);
     if (dataUser["status"]) {
+      /*
       Toast.show("Login correcto", context,
-          duration: Toast.LENGTH_LONG,
+          duration: 1,
           gravity: Toast.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white);
+          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
+          textColor: Color.fromRGBO(225, 225, 225, .9));
+          */
 
       Navigator.push(
         context,
@@ -41,10 +38,10 @@ class _LoginState extends State<Login> {
       );
     } else if (!dataUser["status"]) {
       Toast.show("Login Incorrecto", context,
-          duration: Toast.LENGTH_LONG,
+          duration: 1,
           gravity: Toast.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white);
+          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
+          textColor: Color.fromRGBO(225, 225, 225, .9));
     }
   }
 
@@ -57,7 +54,8 @@ class _LoginState extends State<Login> {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       children: <Widget>[
         Row(
           children: <Widget>[
@@ -114,6 +112,7 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           TextFormField(
                             controller: controllerPass,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(
@@ -179,6 +178,7 @@ class _LoginState extends State<Login> {
                 child: Container(
               child: Column(
                 children: <Widget>[
+                  /*
                   Container(
                     margin: EdgeInsets.only(top: (heightApp * 0.035)),
                     alignment: Alignment.center,
@@ -186,7 +186,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                             fontSize: 14,
                             color: Color.fromRGBO(48, 48, 48, .9))),
-                  ),
+                  ),*/
                   Container(
                       margin: EdgeInsets.only(top: (heightApp * 0.07)),
                       child: Text(
@@ -214,6 +214,6 @@ class _LoginState extends State<Login> {
           ],
         ),
       ],
-    ));
+    )));
   }
 }

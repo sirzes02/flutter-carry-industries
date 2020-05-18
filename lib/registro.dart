@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:appcarro/login.dart';
 import 'package:flutter/material.dart';
-import 'package:appcarro/colores.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
@@ -11,15 +10,16 @@ class Registro extends StatefulWidget {
 }
 
 class _RegistroState extends State<Registro> {
- TextEditingController controllerNom = new TextEditingController();
- TextEditingController controllerApe = new TextEditingController();
- TextEditingController controllerCel = new TextEditingController();
- TextEditingController controllerEmail = new TextEditingController();
- TextEditingController controllerPass = new TextEditingController();
- TextEditingController controllerPassConf = new TextEditingController();
- 
+  TextEditingController controllerNom = new TextEditingController();
+  TextEditingController controllerApe = new TextEditingController();
+  TextEditingController controllerCel = new TextEditingController();
+  TextEditingController controllerEmail = new TextEditingController();
+  TextEditingController controllerPass = new TextEditingController();
+  TextEditingController controllerPassConf = new TextEditingController();
+
   Future<List> crearCuenta() async {
-    final reponde = await http.post("http://3.16.167.111/proyectoCaro/register.php", body: {
+    final reponde =
+        await http.post("http://3.16.167.111/proyectoCaro/register.php", body: {
       "nombre": controllerNom.text,
       "apellido": controllerApe.text,
       "telefono": controllerCel.text,
@@ -30,13 +30,12 @@ class _RegistroState extends State<Registro> {
 
     var dataUser = json.decode(reponde.body);
 
-    
     if (dataUser["status"]) {
       Toast.show("Creaste la cuenta", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white);
+          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
+          textColor: Color.fromRGBO(225, 225, 225, .9));
 
       Navigator.push(
         context,
@@ -46,8 +45,8 @@ class _RegistroState extends State<Registro> {
       Toast.show("${dataUser['problem']}", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white);
+          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
+          textColor: Color.fromRGBO(225, 225, 225, .9));
     }
   }
 
@@ -55,11 +54,13 @@ class _RegistroState extends State<Registro> {
   void initState() {
     super.initState();
   }
+
   Widget build(BuildContext context) {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Column(
+        body: SingleChildScrollView(
+      child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -78,6 +79,7 @@ class _RegistroState extends State<Registro> {
             children: <Widget>[
               Expanded(
                   child: Container(
+                margin: EdgeInsets.only(top: heightApp * 0.0001),
                 child: Text(
                   "Carry Industries",
                   textAlign: TextAlign.center,
@@ -108,7 +110,7 @@ class _RegistroState extends State<Registro> {
                                       const Radius.circular(10.0),
                                     ),
                                   ),
-                                  labelText: 'Nombre',
+                                  labelText: 'Nombre Completo',
                                   prefixIcon: Icon(Icons.person)),
                             ),
                             Container(
@@ -171,6 +173,7 @@ class _RegistroState extends State<Registro> {
                                 children: <Widget>[
                                   TextFormField(
                                     controller: controllerPass,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: const BorderRadius.all(
@@ -189,6 +192,7 @@ class _RegistroState extends State<Registro> {
                                 children: <Widget>[
                                   TextFormField(
                                     controller: controllerPassConf,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: const BorderRadius.all(
@@ -207,51 +211,53 @@ class _RegistroState extends State<Registro> {
                     ),
                   )
                 ],
-              ),Row(
-          children: <Widget>[
-            Expanded(
-                child: Center(
-              child: Container(
-                height: 50.0,
-                margin: EdgeInsets.only(top: (heightApp * 0.03)),
-                child: RaisedButton(
-                  onPressed: () {
-                    crearCuenta();
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(80.0)),
-                  padding: EdgeInsets.all(0.0),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromRGBO(132, 13, 153, .6),
-                            Color.fromRGBO(132, 13, 153, .9),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(30.0)),
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Center(
                     child: Container(
-                      constraints:
-                          BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Crear Cuenta",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      height: 50.0,
+                      margin: EdgeInsets.only(top: (heightApp * 0.03)),
+                      child: RaisedButton(
+                        onPressed: () {
+                          crearCuenta();
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(80.0)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(132, 13, 153, .6),
+                                  Color.fromRGBO(132, 13, 153, .9),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(30.0)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: 250.0, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Crear Cuenta",
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                  )),
+                ],
               ),
-            )),
-          ],
-        ),
             ],
           ),
         ],
       ),
-    );
+    ));
   }
 }
