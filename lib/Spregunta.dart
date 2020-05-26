@@ -3,27 +3,27 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-import 'package:appcarro/Spregunta.dart';
+import 'package:appcarro/Tpregunta.dart';
 
-class Ppregunta extends StatefulWidget {
+class Spregunta extends StatefulWidget {
   @override
-  _PpreguntaoState createState() => _PpreguntaoState();
+  _SpreguntaoState createState() => _SpreguntaoState();
 }
 
-class _PpreguntaoState extends State<Ppregunta> {
-  @override
-  String use = "Selecione una marca";
+class _SpreguntaoState extends State<Spregunta> {
+ @override
+  String use = "Selecione un modelo";
 
 
   /// MARCAS
-  Future<List> marcas() async {
+  Future<List> modelos() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/marcas.php");
+        await http.post("http://3.16.167.111/proyectoCaro/listaModelo.php");
 
-    var dataMar = json.decode(reponde.body);
+    var dataMod = json.decode(reponde.body);
  
-    if (dataMar.length > 0) {
-      return dataMar;
+    if (dataMod.length > 0) {
+      return dataMod;
     } else {
       Toast.show("error", context,
           duration: 1,
@@ -33,14 +33,14 @@ class _PpreguntaoState extends State<Ppregunta> {
     }
   }
   
-  List<String> marcas1 = ["Selecione una marca"];
+  List<String> modelos1 = ["Selecione un modelo"];
   @override
   void initState() {
     super.initState();
-    marcas().then((value) {
+    modelos().then((value) {
       setState(() {
         value.forEach((val) {
-          marcas1.add(val);
+          modelos1.add(val);
         });
       });
     });
@@ -84,7 +84,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                         Container(
                           margin: EdgeInsets.only(top: (heightApp * 0.1)),
                           alignment: Alignment.center,
-                          child: const Text('¿Qué marcas de carro desea usted?',
+                          child: const Text('¿Qué modelo de carro desea usted?',
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
@@ -108,7 +108,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
-                            items: marcas1.map((String e) {
+                            items: modelos1.map((String e) {
                               return DropdownMenuItem<String>(
                                 child: Text(e),
                                 value: e,
@@ -134,7 +134,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Spregunta()),
+                      MaterialPageRoute(builder: (context) => Tpregunta()),
                     );
                   },
                   child: new Icon(

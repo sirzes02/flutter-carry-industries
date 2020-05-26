@@ -25,7 +25,8 @@ class _InicioState extends State<Inicio> {
               fontWeight: FontWeight.w800),
         ),
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        child:Column(
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -106,6 +107,7 @@ class _InicioState extends State<Inicio> {
           ),
         ],
       ),
+      )
     );
   }
 }

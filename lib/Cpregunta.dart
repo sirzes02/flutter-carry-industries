@@ -3,27 +3,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-import 'package:appcarro/Spregunta.dart';
 
-class Ppregunta extends StatefulWidget {
+class Cpregunta extends StatefulWidget {
   @override
-  _PpreguntaoState createState() => _PpreguntaoState();
+  _CpreguntaoState createState() => _CpreguntaoState();
 }
 
-class _PpreguntaoState extends State<Ppregunta> {
-  @override
-  String use = "Selecione una marca";
+class _CpreguntaoState extends State<Cpregunta> {
+@override
+  String use = "Selecione el tipo";
 
 
   /// MARCAS
-  Future<List> marcas() async {
+  Future<List> tipo() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/marcas.php");
+        await http.post("http://3.16.167.111/proyectoCaro/tipos.php");
 
-    var dataMar = json.decode(reponde.body);
+    var dataTipo = json.decode(reponde.body);
  
-    if (dataMar.length > 0) {
-      return dataMar;
+    if (dataTipo.length > 0) {
+      return dataTipo;
     } else {
       Toast.show("error", context,
           duration: 1,
@@ -33,19 +32,18 @@ class _PpreguntaoState extends State<Ppregunta> {
     }
   }
   
-  List<String> marcas1 = ["Selecione una marca"];
+  List<String> tipos1 = ["Selecione el tipo"];
   @override
   void initState() {
     super.initState();
-    marcas().then((value) {
+    tipo().then((value) {
       setState(() {
         value.forEach((val) {
-          marcas1.add(val);
+          tipos1.add(val);
         });
       });
     });
   }
-
   Widget build(BuildContext context) {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
@@ -84,7 +82,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                         Container(
                           margin: EdgeInsets.only(top: (heightApp * 0.1)),
                           alignment: Alignment.center,
-                          child: const Text('¿Qué marcas de carro desea usted?',
+                          child: const Text('¿Qué tipo de carro desea usted?',
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
@@ -95,6 +93,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                   )),
                 ],
               ),
+              
               Row(
                 children: <Widget>[
                   Expanded(
@@ -108,7 +107,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
-                            items: marcas1.map((String e) {
+                            items: tipos1.map((String e) {
                               return DropdownMenuItem<String>(
                                 child: Text(e),
                                 value: e,
@@ -126,27 +125,9 @@ class _PpreguntaoState extends State<Ppregunta> {
                   )),
                 ],
               ),
-              Row(children: <Widget>[
-                Expanded(child: Container(
-                height: 50.0,
-                margin: EdgeInsets.only(top: (heightApp * 0.25)),
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Spregunta()),
-                    );
-                  },
-                  child: new Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-                  shape: new CircleBorder(),
-                  color: Colors.black12,
-                ),
-              ))
-              ],)
+              
+
+
             ],
           ),
         ));
