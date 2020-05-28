@@ -14,7 +14,7 @@
 
       while ($carro = $consultaCar->fetch(PDO::FETCH_ASSOC))
         for ($i=0; $i < count($recomendados) - 1; $i++) 
-          if ($carro['car_pla'] == $recomendados[$i]) {
+          if ($carro['id_car'] == $recomendados[$i]) {
             array_push($arr, $carro);
             break;
           }

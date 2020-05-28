@@ -41,21 +41,5 @@
       if ($cont == $limit) array_push($arr, $carro);
     }
 
-  if (count($arr) > 0) {
-    $consultaUsu = conectarModelo::conexion()->query("SELECT usu_car_rec, usu_cor FROM usuarios");
-
-    while ($usuario = $consultaUsu->fetch(PDO::FETCH_ASSOC))
-      if ($usuario['usu_cor'] == $correo) {
-        $recomendados = $usuario['usu_car_rec'] != NULL ? $usuario['usu_car_rec'] : "";
-
-        for ($i=0; $i < count($arr); $i++) $recomendados .= $arr[$i]['car_pla']. "-";
-        
-        conectarModelo::conexion()->query("UPDATE usuarios SET usu_car_rec='$recomendados' WHERE usu_cor = '$correo'");
-
-        break;
-      }
-
-  }
-
 	echo json_encode($arr);
 ?>
