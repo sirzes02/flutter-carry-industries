@@ -5,14 +5,18 @@ import 'package:appcarro/registro.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
-String username;
-
 class Login extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  final preguntaUse;
+
+  Login({Key key, @required this.preguntaUse}) : super(key: key);
+  _LoginState createState() => _LoginState(preguntaUse);
 }
 
 class _LoginState extends State<Login> {
+  @override
+  final preguntaUse;
+  _LoginState(this.preguntaUse);
   TextEditingController controllerUser = new TextEditingController();
   TextEditingController controllerPass = new TextEditingController();
 
@@ -24,17 +28,10 @@ class _LoginState extends State<Login> {
     var dataUser = json.decode(reponde.body);
     print(dataUser["status"]);
     if (dataUser["status"]) {
-      /*
-      Toast.show("Login correcto", context,
-          duration: 1,
-          gravity: Toast.CENTER,
-          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
-          textColor: Color.fromRGBO(225, 225, 225, .9));
-          */
-
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Inicio()),
+        MaterialPageRoute(
+            builder: (context) => Inicio(preguntaUse: controllerUser)),
       );
     } else if (!dataUser["status"]) {
       Toast.show("Login Incorrecto", context,
@@ -79,6 +76,7 @@ class _LoginState extends State<Login> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 30,
+                    fontFamily: "Montserrat",
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF840D99)),
               ),
@@ -163,7 +161,10 @@ class _LoginState extends State<Login> {
                       child: Text(
                         "Iniciar sesión",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "Montserrat",
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -178,21 +179,13 @@ class _LoginState extends State<Login> {
                 child: Container(
               child: Column(
                 children: <Widget>[
-                  /*
-                  Container(
-                    margin: EdgeInsets.only(top: (heightApp * 0.035)),
-                    alignment: Alignment.center,
-                    child: const Text('Olvidé mi contraseña',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Color.fromRGBO(48, 48, 48, .9))),
-                  ),*/
                   Container(
                       margin: EdgeInsets.only(top: (heightApp * 0.07)),
                       child: Text(
                         "Si no tienes una cuenta puedes crearla aquí:",
                         style: TextStyle(
                             fontSize: 12,
+                            fontFamily: "Montserrat",
                             color: Color.fromRGBO(48, 48, 48, .7)),
                       )),
                   Container(
@@ -206,7 +199,9 @@ class _LoginState extends State<Login> {
                         },
                         child: const Text('Registrarse',
                             style: TextStyle(
-                                fontSize: 20, color: Color(0xFF840D99))),
+                                fontFamily: "Montserrat",
+                                fontSize: 20,
+                                color: Color(0xFF840D99))),
                       ))
                 ],
               ),

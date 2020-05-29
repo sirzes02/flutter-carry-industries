@@ -7,13 +7,18 @@ import 'package:appcarro/Spregunta.dart';
 
 class Ppregunta extends StatefulWidget {
   @override
-  _PpreguntaoState createState() => _PpreguntaoState();
+  final preguntaUse, pregunta1;
+
+  Ppregunta({Key key, @required this.preguntaUse, this.pregunta1})
+      : super(key: key);
+  _PpreguntaoState createState() => _PpreguntaoState(preguntaUse, pregunta1);
 }
 
 class _PpreguntaoState extends State<Ppregunta> {
   @override
+  final preguntaUse, pregunta1;
+  _PpreguntaoState(this.preguntaUse, this.pregunta1);
   String use = "Selecione una marca";
-
 
   /// MARCAS
   Future<List> marcas() async {
@@ -21,7 +26,7 @@ class _PpreguntaoState extends State<Ppregunta> {
         await http.post("http://3.16.167.111/proyectoCaro/marcas.php");
 
     var dataMar = json.decode(reponde.body);
- 
+
     if (dataMar.length > 0) {
       return dataMar;
     } else {
@@ -32,7 +37,7 @@ class _PpreguntaoState extends State<Ppregunta> {
           textColor: Color.fromRGBO(225, 225, 225, .9));
     }
   }
-  
+
   List<String> marcas1 = ["Selecione una marca"];
   @override
   void initState() {
@@ -52,10 +57,10 @@ class _PpreguntaoState extends State<Ppregunta> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Carro",
+            "Marca",
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
-                fontFamily: "flower",
+                fontFamily: "Montserrat",
                 fontSize: 30,
                 fontWeight: FontWeight.w800),
           ),
@@ -68,7 +73,7 @@ class _PpreguntaoState extends State<Ppregunta> {
                   Expanded(
                       child: Container(
                     alignment: Alignment.center,
-                    child: Image.asset("imagenes/carros.png"),
+                    child: Image.asset("imagenes/w.png"),
                     height: 180,
                     margin: EdgeInsets.only(top: (heightApp * .05)),
                   )),
@@ -77,34 +82,27 @@ class _PpreguntaoState extends State<Ppregunta> {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: Container(
-                    width: widthApp * 0.8,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: (heightApp * 0.1)),
-                          alignment: Alignment.center,
-                          child: const Text('¿Qué marcas de carro desea usted?',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color.fromRGBO(48, 48, 48, .9))),
-                        ),
-                      ],
+                    child: Container(
+                      margin: EdgeInsets.only(top: (heightApp * 0.07)),
+                      child: Text('¿Qué marca de carro desea usted?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "Montserrat",
+                          )),
                     ),
-                  )),
+                  ),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Expanded(
                       child: Container(
-                    
                     child: Column(
                       children: <Widget>[
                         Container(
                           width: widthApp * 0.8,
-                    margin: EdgeInsets.only(top: (heightApp * 0.06)),
+                          margin: EdgeInsets.only(top: (heightApp * 0.09)),
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
@@ -126,27 +124,34 @@ class _PpreguntaoState extends State<Ppregunta> {
                   )),
                 ],
               ),
-              Row(children: <Widget>[
-                Expanded(child: Container(
-                height: 50.0,
-                margin: EdgeInsets.only(top: (heightApp * 0.25)),
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Spregunta()),
-                    );
-                  },
-                  child: new Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-                  shape: new CircleBorder(),
-                  color: Colors.black12,
-                ),
-              ))
-              ],)
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Container(
+                    height: 50.0,
+                    margin: EdgeInsets.only(top: (heightApp * 0.22)),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Spregunta(
+                                    preguntaUse: preguntaUse,
+                                    pregunta1: use,
+                                  )),
+                        );
+                      },
+                      child: new Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 20.0,
+                      ),
+                      shape: new CircleBorder(),
+                      color: Color(0xFF840D99),
+                    ),
+                  ))
+                ],
+              )
             ],
           ),
         ));

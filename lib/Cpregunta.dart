@@ -1,18 +1,32 @@
 import 'dart:convert';
 
+import 'package:appcarro/Qpregunta.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 
 class Cpregunta extends StatefulWidget {
   @override
-  _CpreguntaoState createState() => _CpreguntaoState();
+  final preguntaUse, pregunta1, pregunta2, pregunta3, pregunta4;
+
+  Cpregunta(
+      {Key key,
+      @required this.preguntaUse,
+      this.pregunta1,
+      this.pregunta2,
+      this.pregunta3,
+      this.pregunta4})
+      : super(key: key);
+  _CpreguntaoState createState() =>
+      _CpreguntaoState(preguntaUse, pregunta1, pregunta2, pregunta3, pregunta4);
 }
 
 class _CpreguntaoState extends State<Cpregunta> {
-@override
+  @override
+  final preguntaUse, pregunta1, pregunta2, pregunta3, pregunta4;
+  _CpreguntaoState(this.preguntaUse, this.pregunta1, this.pregunta2,
+      this.pregunta3, this.pregunta4);
   String use = "Selecione el tipo";
-
 
   /// MARCAS
   Future<List> tipo() async {
@@ -20,7 +34,7 @@ class _CpreguntaoState extends State<Cpregunta> {
         await http.post("http://3.16.167.111/proyectoCaro/tipos.php");
 
     var dataTipo = json.decode(reponde.body);
- 
+
     if (dataTipo.length > 0) {
       return dataTipo;
     } else {
@@ -31,7 +45,7 @@ class _CpreguntaoState extends State<Cpregunta> {
           textColor: Color.fromRGBO(225, 225, 225, .9));
     }
   }
-  
+
   List<String> tipos1 = ["Selecione el tipo"];
   @override
   void initState() {
@@ -44,16 +58,17 @@ class _CpreguntaoState extends State<Cpregunta> {
       });
     });
   }
+
   Widget build(BuildContext context) {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Carro",
+            "Tipo",
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
-                fontFamily: "flower",
+                fontFamily: "Montserrat",
                 fontSize: 30,
                 fontWeight: FontWeight.w800),
           ),
@@ -65,8 +80,9 @@ class _CpreguntaoState extends State<Cpregunta> {
                 children: <Widget>[
                   Expanded(
                       child: Container(
+                    width: widthApp * 0.4,
                     alignment: Alignment.center,
-                    child: Image.asset("imagenes/carros.png"),
+                    child: Image.asset("imagenes/por.png"),
                     height: 180,
                     margin: EdgeInsets.only(top: (heightApp * .05)),
                   )),
@@ -77,33 +93,26 @@ class _CpreguntaoState extends State<Cpregunta> {
                   Expanded(
                       child: Container(
                     width: widthApp * 0.8,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: (heightApp * 0.1)),
-                          alignment: Alignment.center,
-                          child: const Text('¿Qué tipo de carro desea usted?',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color.fromRGBO(48, 48, 48, .9))),
-                        ),
-                      ],
-                    ),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: (heightApp * 0.07)),
+                    child: Text('¿Qué tipo de carro desea usted?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "Montserrat",
+                        )),
                   )),
                 ],
               ),
-              
               Row(
                 children: <Widget>[
                   Expanded(
                       child: Container(
-                    
                     child: Column(
                       children: <Widget>[
                         Container(
                           width: widthApp * 0.8,
-                    margin: EdgeInsets.only(top: (heightApp * 0.06)),
+                          margin: EdgeInsets.only(top: (heightApp * 0.09)),
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
@@ -125,9 +134,36 @@ class _CpreguntaoState extends State<Cpregunta> {
                   )),
                 ],
               ),
-              
-
-
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Container(
+                    height: 50.0,
+                    margin: EdgeInsets.only(top: (heightApp * 0.23)),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Qpregunta(
+                                  preguntaUse: preguntaUse,
+                                  pregunta1: pregunta1,
+                                  pregunta2: pregunta2,
+                                  pregunta3: pregunta3,
+                                  pregunta4: use)),
+                        );
+                      },
+                      child: new Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 20.0,
+                      ),
+                      shape: new CircleBorder(),
+                      color: Color(0xFF840D99),
+                    ),
+                  ))
+                ],
+              )
             ],
           ),
         ));

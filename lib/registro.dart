@@ -84,6 +84,7 @@ class _RegistroState extends State<Registro> {
                   "Carry Industries",
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                      fontFamily: "Montserrat",
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                       color: Color(0xFF840D99)),
@@ -244,8 +245,10 @@ class _RegistroState extends State<Registro> {
                             child: Text(
                               "Crear Cuenta",
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "Montserrat",
+                                  color: Colors.white),
                             ),
                           ),
                         ),

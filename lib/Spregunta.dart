@@ -7,13 +7,20 @@ import 'package:appcarro/Tpregunta.dart';
 
 class Spregunta extends StatefulWidget {
   @override
-  _SpreguntaoState createState() => _SpreguntaoState();
+  final preguntaUse, pregunta1, pregunta2;
+
+  Spregunta(
+      {Key key, @required this.preguntaUse, this.pregunta1, this.pregunta2})
+      : super(key: key);
+  _SpreguntaoState createState() =>
+      _SpreguntaoState(preguntaUse, pregunta1, pregunta2);
 }
 
 class _SpreguntaoState extends State<Spregunta> {
- @override
+  @override
+  final preguntaUse, pregunta1, pregunta2;
+  _SpreguntaoState(this.preguntaUse, this.pregunta1, this.pregunta2);
   String use = "Selecione un modelo";
-
 
   /// MARCAS
   Future<List> modelos() async {
@@ -21,7 +28,7 @@ class _SpreguntaoState extends State<Spregunta> {
         await http.post("http://3.16.167.111/proyectoCaro/listaModelo.php");
 
     var dataMod = json.decode(reponde.body);
- 
+
     if (dataMod.length > 0) {
       return dataMod;
     } else {
@@ -32,7 +39,7 @@ class _SpreguntaoState extends State<Spregunta> {
           textColor: Color.fromRGBO(225, 225, 225, .9));
     }
   }
-  
+
   List<String> modelos1 = ["Selecione un modelo"];
   @override
   void initState() {
@@ -52,10 +59,10 @@ class _SpreguntaoState extends State<Spregunta> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Carro",
+            "Modelo",
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
-                fontFamily: "flower",
+                fontFamily: "Montserrat",
                 fontSize: 30,
                 fontWeight: FontWeight.w800),
           ),
@@ -68,7 +75,7 @@ class _SpreguntaoState extends State<Spregunta> {
                   Expanded(
                       child: Container(
                     alignment: Alignment.center,
-                    child: Image.asset("imagenes/carros.png"),
+                    child: Image.asset("imagenes/car.png"),
                     height: 180,
                     margin: EdgeInsets.only(top: (heightApp * .05)),
                   )),
@@ -77,34 +84,27 @@ class _SpreguntaoState extends State<Spregunta> {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: Container(
-                    width: widthApp * 0.8,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: (heightApp * 0.1)),
-                          alignment: Alignment.center,
-                          child: const Text('¿Qué modelo de carro desea usted?',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color.fromRGBO(48, 48, 48, .9))),
-                        ),
-                      ],
+                    child: Container(
+                      margin: EdgeInsets.only(top: (heightApp * 0.07)),
+                      child: Text('¿Qué modelo de carro desea usted? ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "Montserrat",
+                          )),
                     ),
-                  )),
+                  ),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Expanded(
                       child: Container(
-                    
                     child: Column(
                       children: <Widget>[
                         Container(
                           width: widthApp * 0.8,
-                    margin: EdgeInsets.only(top: (heightApp * 0.06)),
+                          margin: EdgeInsets.only(top: (heightApp * 0.09)),
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
@@ -126,27 +126,34 @@ class _SpreguntaoState extends State<Spregunta> {
                   )),
                 ],
               ),
-              Row(children: <Widget>[
-                Expanded(child: Container(
-                height: 50.0,
-                margin: EdgeInsets.only(top: (heightApp * 0.25)),
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Tpregunta()),
-                    );
-                  },
-                  child: new Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-                  shape: new CircleBorder(),
-                  color: Colors.black12,
-                ),
-              ))
-              ],)
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Container(
+                    height: 50.0,
+                    margin: EdgeInsets.only(top: (heightApp * 0.23)),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Tpregunta(
+                                  preguntaUse: preguntaUse,
+                                  pregunta1: pregunta1,
+                                  pregunta2: use)),
+                        );
+                      },
+                      child: new Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 20.0,
+                      ),
+                      shape: new CircleBorder(),
+                      color: Color(0xFF840D99),
+                    ),
+                  ))
+                ],
+              )
             ],
           ),
         ));
