@@ -136,7 +136,7 @@ class _QpreguntaoState extends State<Qpregunta> {
                                 pregunta2: pregunta2,
                                 pregunta3: pregunta3,
                                 pregunta4: pregunta4,
-                                pregunta5: controllerPla)),
+                                pregunta5: controllerPla.text)),
                       );
                     },
                     child: new Icon(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:appcarro/Cpregunta.dart';
-
+import 'package:flutter_masked_text/flutter_masked_text.Dart';
 class Tpregunta extends StatefulWidget {
   @override
   final preguntaUse, pregunta1, pregunta2, pregunta3;
@@ -22,10 +22,13 @@ class Tpregunta extends StatefulWidget {
 
 class _TpreguntaoState extends State<Tpregunta> {
   @override
+
   final preguntaUse, pregunta1, pregunta2, pregunta3;
   _TpreguntaoState(
       this.preguntaUse, this.pregunta1, this.pregunta2, this.pregunta3);
   String use = "Selecione el precio";
+  var info;
+  var moneyController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: ' \$');
 
   /// MARCAS
   Future<List> precios() async {
@@ -59,12 +62,13 @@ class _TpreguntaoState extends State<Tpregunta> {
   }
 
   Widget build(BuildContext context) {
+    
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Carro",
+            "Precio",
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
                 fontFamily: "Montserrat",
@@ -114,8 +118,15 @@ class _TpreguntaoState extends State<Tpregunta> {
                             isExpanded: true,
                             value: use,
                             items: precios1.map((String e) {
+                              String cont1;
+                              if(e=="Selecione el precio"){
+                                cont1="0";
+                              }
+                              else cont1=e;
+                              double cont= double.parse(cont1);
+                              moneyController.updateValue(cont);
                               return DropdownMenuItem<String>(
-                                child: Text(e),
+                                child:Text(moneyController.text),
                                 value: e,
                               );
                             }).toList(),

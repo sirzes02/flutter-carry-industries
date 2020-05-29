@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Inicio(preguntaUse: controllerUser)),
+            builder: (context) => Inicio(preguntaUse: controllerUser.text)),
       );
     } else if (!dataUser["status"]) {
       Toast.show("Login Incorrecto", context,

@@ -28,18 +28,31 @@ class _ListadoState extends State<Listado> {
   _ListadoState(this.preguntaUse, this.pregunta1, this.pregunta2,
       this.pregunta3, this.pregunta4, this.pregunta5);
   String use = "Lista de carros sugeridos";
+  var info;
 
   /// MARCAS
-  Future<List> tipo() async {
-    final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/tipos.php");
+  Future<Map> tipo() async {
 
-    var dataTipo = json.decode(reponde.body);
+    var jsonData = {
+    "placa": pregunta5,
+      "marca": pregunta1,
+      "modelo": pregunta2,
+      "precio": pregunta3,  
+      "tipo": pregunta4
+      
+    };
+    final reponde = await http
+        .post("http://3.16.167.111/proyectoCaro/recomendacion.php",
+        body: jsonData);
+    print('te amo');
+    print(jsonData);
 
-    if (dataTipo.length > 0) {
+    Map dataTipo = json.decode(reponde.body);
+
+    if (dataTipo['status']) {
       return dataTipo;
-    } else {
-      Toast.show("error", context,
+    } else if (!dataTipo['status']){
+      Toast.show("La placa no es real.", context,
           duration: 1,
           gravity: Toast.CENTER,
           backgroundColor: Color.fromRGBO(132, 13, 153, .9),
@@ -53,11 +66,11 @@ class _ListadoState extends State<Listado> {
     super.initState();
     tipo().then((value) {
       setState(() {
-        value.forEach((val) {
-          tipos1.add(val);
-        });
+        info = value;
+        print(value);
       });
     });
+    
   }
 
   Widget build(BuildContext context) {
@@ -70,7 +83,7 @@ class _ListadoState extends State<Listado> {
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
                 fontFamily: "Montserrat",
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w800),
           ),
         ),
@@ -89,37 +102,6 @@ class _ListadoState extends State<Listado> {
                   )),
                 ],
               ),
-              /*
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: widthApp * 0.8,
-                          margin: EdgeInsets.only(top: (heightApp * 0.09)),
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: use,
-                            items: tipos1.map((String e) {
-                              return DropdownMenuItem<String>(
-                                child: Text(e),
-                                value: e,
-                              );
-                            }).toList(),
-                            onChanged: (mostrar) {
-                              setState(() {
-                                use = mostrar;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-                ],
-              ),*/
               Row(
                 children: <Widget>[
                   Expanded(
@@ -129,7 +111,7 @@ class _ListadoState extends State<Listado> {
                           Container(
                             margin: EdgeInsets.only(top: (heightApp * 0.04)),
                             child: Text(
-                                'el carro sugerido por carry es_',
+                                'Hola ${preguntaUse.toString()}, Carry industies te recomienda el carro con las siguientes características:',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18,
@@ -138,7 +120,16 @@ class _ListadoState extends State<Listado> {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: (heightApp * 0.04)),
-                            child: Text('Marca: ${pregunta1.toString()}',
+                            child: Text('Marca: ${(info['respuesta']['marca']??'') }',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: "Montserrat",
+                                )),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: (heightApp * 0.02)),
+                            child: Text('Modelo: ${(info['respuesta']['modelo']??'') }',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18,
@@ -147,7 +138,7 @@ class _ListadoState extends State<Listado> {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: (heightApp * 0.04)),
-                            child: Text('Modelo: ${pregunta2.toString()}',
+                            child: Text('Precio: ${(info['respuesta']['precio']??'') }',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18,
@@ -156,7 +147,7 @@ class _ListadoState extends State<Listado> {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: (heightApp * 0.04)),
-                            child: Text('Precio: ${pregunta3.toString()}',
+                            child: Text('tipo: ${(info['respuesta']['tipo']??'') }',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18,
@@ -165,7 +156,7 @@ class _ListadoState extends State<Listado> {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: (heightApp * 0.04)),
-                            child: Text('tipo: ${pregunta4.toString()}',
+                            child: Text('Placa: ${(info['respuesta']['placa']??'') }',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18,
