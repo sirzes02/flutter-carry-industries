@@ -1,26 +1,25 @@
 <?php
-	require_once("./conexion.php");
-	
-  $arr = array();
+require_once("./conexion.php");
 
-  $correo = $_POST['correo'];
-  
-  $consulta = conectarModelo::conexion()->query("SELECT usu_car_rec, usu_cor FROM usuarios");
+$arr = array();
 
-  while ($usuario = $consulta->fetch(PDO::FETCH_ASSOC))
-    if ($usuario['usu_cor'] == $correo) {
-      $recomendados = explode("-", $usuario['usu_car_rec']);
-      $consultaCar = conectarModelo::conexion()->query("SELECT * FROM carro");
+$correo = $_POST['correo'];
 
-      while ($carro = $consultaCar->fetch(PDO::FETCH_ASSOC))
-        for ($i=0; $i < count($recomendados) - 1; $i++) 
-          if ($carro['id_car'] == $recomendados[$i]) {
-            array_push($arr, $carro);
-            break;
-          }
-        
-      break;
-    }
+$consulta = conectarModelo::conexion()->query("SELECT usu_car_rec, usu_cor FROM usuarios");
 
-	echo json_encode($arr);
-?>
+while ($usuario = $consulta->fetch(PDO::FETCH_ASSOC))
+  if ($usuario['usu_cor'] == $correo) {
+    $recomendados = explode("-", $usuario['usu_car_rec']);
+    $consultaCar = conectarModelo::conexion()->query("SELECT * FROM carro");
+
+    while ($carro = $consultaCar->fetch(PDO::FETCH_ASSOC))
+      for ($i = 0; $i < count($recomendados) - 1; $i++)
+        if ($carro['id_car'] == $recomendados[$i]) {
+          array_push($arr, $carro);
+          break;
+        }
+
+    break;
+  }
+
+echo json_encode($arr);

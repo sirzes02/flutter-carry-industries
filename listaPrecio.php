@@ -1,12 +1,11 @@
 <?php
-  require_once('./conexion.php');
-  
-  $arr = array();
+require_once('./conexion.php');
 
-  $consulta = conectarModelo::conexion()->query('SELECT car_pre FROM carro');
+$arr = array();
 
-  while ($carro = $consulta->fetch(PDO::FETCH_ASSOC))
-    array_push($arr, $carro['car_pre']);
+$consulta = conectarModelo::conexion()->query('SELECT car_pre FROM carro');
 
-  echo json_encode(array_values(array_unique($arr)));
-?>
+while ($carro = $consulta->fetch(PDO::FETCH_ASSOC))
+  array_push($arr, $carro['car_pre']);
+
+echo json_encode(array_values(array_unique($arr)));

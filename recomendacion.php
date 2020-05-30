@@ -1,45 +1,19 @@
 <?php
-	require_once("./conexion.php");
-	
-  $arr = array();
-  
-	$marca = $_POST['marca'];
-  $modelo = $_POST['modelo'];
-  $precio = $_POST['precio'];
-	$tipo = $_POST['tipo'];
-	$usado = $_POST['usado'];
-  $correo = $_POST['correo'];
-  
-  $consulta = conectarModelo::conexion()->query("SELECT * FROM carro");
-  $cont;
-  $limit = 5;
+require_once("./conexion.php");
 
-  if ($marca == "") $limit--;
-  if ($modelo == "") $limit--;
-  else {
-    $modeloL = explode("-", $_POST['modelo'])[0];
-    $modeloH = explode("-", $_POST['modelo'])[1];
-  }
-  if ($precio == "") $limit--;
-  else {
-    $precioL = explode("-", $_POST['precio'])[0];
-    $precioH = explode("-", $_POST['precio'])[1];
-  }
-  if ($tipo == "") $limit--;
-  if ($usado == "") $limit--;
+$arr = array('status' => false, 'problem' => null, 'respuesta' => null);
 
-  if ($limit > 0)
-    while ($carro = $consulta->fetch(PDO::FETCH_ASSOC)){
-      $cont = 0;
+$placa = $_POST['placa'];
 
-      if ($marca != "" && $carro['car_mar'] == $marca) $cont++;     
-      if ($modelo != "" && $carro['car_mod'] >= $modeloL && $carro['car_mod'] <= $modeloH) $cont++;
-      if ($precio != "" && $carro['car_pre'] >= $precioL && $carro['car_pre'] <= $precioH) $cont++;
-      if ($tipo != "" && $carro['car_tip'] == $tipo) $cont++;
-      if ($usado != "" && $carro['car_usa'] == $usado) $cont++;
+if (strlen($placa) == 6) {
+  $aux = array('placa' => null, 'marca' => null, 'modelo' => null, 'precio' => null, 'tipo' => null);
+  $aux['placa'] = $_POST['placa'];
+  $aux['marca'] = $_POST['marca'];
+  $aux['modelo'] = $_POST['modelo'];
+  $aux['precio'] = $_POST['precio'];
+  $aux['tipo'] = $_POST['tipo'];
+  $arr['status'] = true;
+  $arr['respuesta'] = $aux;
+} else $arr['problem'] = "La placa no es real.";
 
-      if ($cont == $limit) array_push($arr, $carro);
-    }
-
-	echo json_encode($arr);
-?>
+echo json_encode($arr);

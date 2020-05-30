@@ -1,22 +1,21 @@
 <?php
-  require_once('./conexion.php');
+require_once('./conexion.php');
 
-  // 1 = modelo
-  // 2 = precio
-  
-  $arr = array();
+// 1 = modelo
+// 2 = precio
 
-  $opc = $_POST['opc'];
+$arr = array();
 
-  $consulta = conectarModelo::conexion()->query('SELECT car_pre, car_mod FROM carro');
+$opc = $_POST['opc'];
 
-  while ($carro = $consulta->fetch(PDO::FETCH_ASSOC))
-    if ($opc == 1)
-      array_push($arr, $carro['car_mod']);
-    else 
-      array_push($arr, $carro['car_pre']);
+$consulta = conectarModelo::conexion()->query('SELECT car_pre, car_mod FROM carro');
 
-  sort($arr);
+while ($carro = $consulta->fetch(PDO::FETCH_ASSOC))
+  if ($opc == 1)
+    array_push($arr, $carro['car_mod']);
+  else
+    array_push($arr, $carro['car_pre']);
 
-  echo '{"min":'. $arr[0]. ', "max": '. $arr[count($arr) - 1]. '}';
-?>
+sort($arr);
+
+echo '{"min":' . $arr[0] . ', "max": ' . $arr[count($arr) - 1] . '}';
