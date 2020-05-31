@@ -24,7 +24,7 @@ class _InicioState extends State<Inicio> {
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
                 fontFamily: "Montserrat",
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w800),
           ),
         ),
@@ -50,23 +50,24 @@ class _InicioState extends State<Inicio> {
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(top: (heightApp * 0.035)),
-                          child: Text('Carry Industrial',
+                          child: Text('Carry Industries',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 32,
                                   fontFamily: "Montserrat",
                                   fontWeight: FontWeight.w900,
-                                  color: Color(0xFF840D99))),
+                                  color: Color(0xFFC6AD52))),
                         ),
                         Container(
-                            margin: EdgeInsets.only(top: (heightApp * 0.06)),
+                            width: widthApp * 0.8,
+                            margin: EdgeInsets.only(top: (heightApp * 0.04)),
                             child: Text(
-                              "La mejor opcion para decidir la compra de su carro ideal, en el concesionario Luxy Cars",
+                              "La mejor opción para decidir la compra de su carro ideal, en el concesionario Luxy Cars",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: "Montserrat",
-                              ),
+                                  fontSize: 18,
+                                  fontFamily: "Montserrat",
+                                  color: Color.fromRGBO(48, 48, 48, .8)),
                             )),
                         Container(
                           height: 50.0,
@@ -88,8 +89,8 @@ class _InicioState extends State<Inicio> {
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      Color.fromRGBO(132, 13, 153, .6),
-                                      Color.fromRGBO(132, 13, 153, .9),
+                                      Color.fromRGBO(101, 115, 26, .5),
+                                      Color.fromRGBO(101, 115, 26, .7),
                                     ],
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
@@ -97,7 +98,7 @@ class _InicioState extends State<Inicio> {
                                   borderRadius: BorderRadius.circular(30.0)),
                               child: Container(
                                 constraints: BoxConstraints(
-                                    maxWidth: 250.0, minHeight: 50.0),
+                                    maxWidth: 210.0, minHeight: 50.0),
                                 alignment: Alignment.center,
                                 child: Text(
                                   "Comenzar",

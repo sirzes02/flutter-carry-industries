@@ -45,14 +45,9 @@ class _RegistroState extends State<Registro> {
       Toast.show("${dataUser['problem']}", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.CENTER,
-          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
-          textColor: Color.fromRGBO(225, 225, 225, .9));
+          backgroundColor: Color(0xFFC6AD52),
+          textColor: Color(0xFF5C6917));
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   Widget build(BuildContext context) {
@@ -70,7 +65,7 @@ class _RegistroState extends State<Registro> {
                   width: widthApp * 100,
                   alignment: Alignment.center,
                   child: Image.asset("imagenes/carros.png"),
-                  height: 300,
+                  height: 260,
                 ),
               )
             ],
@@ -86,8 +81,8 @@ class _RegistroState extends State<Registro> {
                   style: TextStyle(
                       fontFamily: "Montserrat",
                       fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF840D99)),
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFFC6AD52)),
                 ),
               ))
             ],
@@ -231,8 +226,8 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Color.fromRGBO(132, 13, 153, .6),
-                                  Color.fromRGBO(132, 13, 153, .9),
+                                  Color.fromRGBO(101, 115, 26, .5),
+                                  Color.fromRGBO(101, 115, 26, .7),
                                 ],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,

@@ -61,7 +61,7 @@ class _PpreguntaoState extends State<Ppregunta> {
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
                 fontFamily: "Montserrat",
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w800),
           ),
         ),
@@ -87,9 +87,10 @@ class _PpreguntaoState extends State<Ppregunta> {
                       child: Text('¿Qué marca de carro desea usted?',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: "Montserrat",
-                          )),
+                              fontSize: 25,
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xFFA37136))),
                     ),
                   ),
                 ],
@@ -106,6 +107,10 @@ class _PpreguntaoState extends State<Ppregunta> {
                           child: DropdownButton<String>(
                             isExpanded: true,
                             value: use,
+                            style: new TextStyle(
+                                color: Color(0xFF5C6917),
+                                fontSize: 18,
+                                fontFamily: "Montserrat"),
                             items: marcas1.map((String e) {
                               return DropdownMenuItem<String>(
                                 child: Text(e),
@@ -143,11 +148,11 @@ class _PpreguntaoState extends State<Ppregunta> {
                       },
                       child: new Icon(
                         Icons.arrow_forward,
-                        color: Colors.white,
+                        color: Color(0xFF5C6917),
                         size: 20.0,
                       ),
                       shape: new CircleBorder(),
-                      color: Color(0xFF840D99),
+                      color: Color(0xFFC6AD52),
                     ),
                   ))
                 ],

@@ -27,28 +27,6 @@ class _QpreguntaoState extends State<Qpregunta> {
       this.pregunta3, this.pregunta4, this.pregunta5);
   TextEditingController controllerPla = new TextEditingController();
 
-  Future<List> login() async {
-    final reponde = await http.post(
-        "http://3.16.167.111/proyectoCaro/login.php",
-        body: {"placa": controllerPla.text});
-
-    var dataUser = json.decode(reponde.body);
-    print(dataUser["status"]);
-    if (dataUser["status"]) {
-    } else if (!dataUser["status"]) {
-      Toast.show("error de placa", context,
-          duration: 1,
-          gravity: Toast.CENTER,
-          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
-          textColor: Color.fromRGBO(225, 225, 225, .9));
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     double widthApp = MediaQuery.of(context).size.width;
     double heightApp = MediaQuery.of(context).size.height;
@@ -59,7 +37,7 @@ class _QpreguntaoState extends State<Qpregunta> {
             style: TextStyle(
                 color: Color.fromRGBO(255, 255, 255, .9),
                 fontFamily: "Montserrat",
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w800),
           ),
         ),
@@ -89,9 +67,10 @@ class _QpreguntaoState extends State<Qpregunta> {
                     "Qué placa desea colocar",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 18,
-                    ),
+                        fontSize: 25,
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFFA37136)),
                   ),
                 ))
               ],
@@ -127,25 +106,33 @@ class _QpreguntaoState extends State<Qpregunta> {
                   margin: EdgeInsets.only(top: (heightApp * 0.23)),
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Listado(
-                                preguntaUse: preguntaUse,
-                                pregunta1: pregunta1,
-                                pregunta2: pregunta2,
-                                pregunta3: pregunta3,
-                                pregunta4: pregunta4,
-                                pregunta5: controllerPla.text)),
-                      );
+                      if ((controllerPla.text).length == 6) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Listado(
+                                  preguntaUse: preguntaUse,
+                                  pregunta1: pregunta1,
+                                  pregunta2: pregunta2,
+                                  pregunta3: pregunta3,
+                                  pregunta4: pregunta4,
+                                  pregunta5: controllerPla.text)),
+                        );
+                      } else {
+                        Toast.show("Error de placa", context,
+                            duration: 1,
+                            gravity: Toast.CENTER,
+                            backgroundColor: Color(0xFFC6AD52),
+                            textColor: Color(0xFF5C6917));
+                      }
                     },
                     child: new Icon(
                       Icons.arrow_forward,
-                      color: Colors.white,
+                      color: Color(0xFF5C6917),
                       size: 20.0,
                     ),
                     shape: new CircleBorder(),
-                    color: Color(0xFF840D99),
+                    color: Color(0xFFC6AD52),
                   ),
                 ))
               ],

@@ -37,8 +37,8 @@ class _LoginState extends State<Login> {
       Toast.show("Login Incorrecto", context,
           duration: 1,
           gravity: Toast.CENTER,
-          backgroundColor: Color.fromRGBO(132, 13, 153, .9),
-          textColor: Color.fromRGBO(225, 225, 225, .9));
+          backgroundColor: Color(0xFFC6AD52),
+          textColor: Color(0xFF5C6917));
     }
   }
 
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                 width: widthApp * 100,
                 alignment: Alignment.center,
                 child: Image.asset("imagenes/carros.png"),
-                height: 300,
+                height: 260,
               ),
             )
           ],
@@ -71,14 +71,15 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             Expanded(
                 child: Container(
+              margin: EdgeInsets.only(top: (heightApp * 0.02)),
               child: Text(
                 "Carry Industries",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 35,
                     fontFamily: "Montserrat",
-                    fontWeight: FontWeight.w800,
-                    color: Color(0xFF840D99)),
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFFC6AD52)),
               ),
             ))
           ],
@@ -135,7 +136,7 @@ class _LoginState extends State<Login> {
                 child: Center(
               child: Container(
                 height: 50.0,
-                margin: EdgeInsets.only(top: (heightApp * 0.03)),
+                margin: EdgeInsets.only(top: (heightApp * 0.05)),
                 child: RaisedButton(
                   onPressed: () {
                     login();
@@ -147,8 +148,8 @@ class _LoginState extends State<Login> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Color.fromRGBO(132, 13, 153, .6),
-                            Color.fromRGBO(132, 13, 153, .9),
+                            Color.fromRGBO(101, 115, 26, .5),
+                            Color.fromRGBO(101, 115, 26, .7),
                           ],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -156,7 +157,7 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Container(
                       constraints:
-                          BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
+                          BoxConstraints(maxWidth: 230.0, minHeight: 50.0),
                       alignment: Alignment.center,
                       child: Text(
                         "Iniciar sesión",
@@ -177,10 +178,11 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             Expanded(
                 child: Container(
+              width: widthApp * 0.8,
               child: Column(
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.only(top: (heightApp * 0.07)),
+                      margin: EdgeInsets.only(top: (heightApp * 0.12)),
                       child: Text(
                         "Si no tienes una cuenta puedes crearla aquí:",
                         style: TextStyle(
@@ -189,7 +191,7 @@ class _LoginState extends State<Login> {
                             color: Color.fromRGBO(48, 48, 48, .7)),
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: (heightApp * 0.02)),
+                      margin: EdgeInsets.only(top: (heightApp * 0.03)),
                       child: FlatButton(
                         onPressed: () {
                           Navigator.push(
@@ -201,7 +203,7 @@ class _LoginState extends State<Login> {
                             style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontSize: 20,
-                                color: Color(0xFF840D99))),
+                                color: Color(0xFFA37136))),
                       ))
                 ],
               ),

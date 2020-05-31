@@ -88,4 +88,4 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: font/Montserrat-BoldItalic.ttf
+        - asset: font/PTSerif-BoldItalic.ttf
