@@ -23,7 +23,7 @@ class _PpreguntaoState extends State<Ppregunta> {
   /// MARCAS
   Future<List> marcas() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/marcas.php");
+        await http.post("http://3.16.167.111/Carry-industries/marcas.php");
 
     var dataMar = json.decode(reponde.body);
 

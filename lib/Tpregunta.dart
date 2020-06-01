@@ -34,7 +34,7 @@ class _TpreguntaoState extends State<Tpregunta> {
   /// MARCAS
   Future<List> precios() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/listaPrecio.php");
+        await http.post("http://3.16.167.111/Carry-industries/listaPrecio.php");
 
     var dataPre = json.decode(reponde.body);
 

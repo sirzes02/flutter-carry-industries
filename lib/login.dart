@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
 
   Future<List> login() async {
     final reponde = await http.post(
-        "http://3.16.167.111/proyectoCaro/login.php",
+        "http://3.16.167.111/Carry-industries/login.php",
         body: {"correo": controllerUser.text, "contra": controllerPass.text});
 
     var dataUser = json.decode(reponde.body);

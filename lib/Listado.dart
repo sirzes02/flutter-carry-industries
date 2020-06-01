@@ -38,7 +38,7 @@ class _ListadoState extends State<Listado> {
       "tipo": pregunta4
     };
     final reponde = await http.post(
-        "http://3.16.167.111/proyectoCaro/recomendacion.php",
+        "http://3.16.167.111/Carry-industries/recomendacion.php",
         body: jsonData);
 
     Map dataTipo = json.decode(reponde.body);

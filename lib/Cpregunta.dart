@@ -31,7 +31,7 @@ class _CpreguntaoState extends State<Cpregunta> {
   /// MARCAS
   Future<List> tipo() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/tipos.php");
+        await http.post("http://3.16.167.111/Carry-industries/tipos.php");
 
     var dataTipo = json.decode(reponde.body);
 

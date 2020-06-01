@@ -19,7 +19,7 @@ class _RegistroState extends State<Registro> {
 
   Future<List> crearCuenta() async {
     final reponde =
-        await http.post("http://3.16.167.111/proyectoCaro/register.php", body: {
+        await http.post("http://3.16.167.111/Carry-industries/register.php", body: {
       "nombre": controllerNom.text,
       "apellido": controllerApe.text,
       "telefono": controllerCel.text,
